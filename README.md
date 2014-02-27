@@ -4,6 +4,8 @@ LitespeedStatsLibrary
 Parse LiteSpeed statistics files in Java
 Parse and get rtreport stats of litespeed in Java
 
+- JavaDoc of this lib : http://loadlow.github.io/LitespeedStatsLibrary/
+
 <h4>How does it work?</h4>
 This lib gets the content of rtreport stats (you must specify the path of the file),
 and parses this stats using Pattern and Regex.
