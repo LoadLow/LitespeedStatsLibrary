@@ -46,5 +46,29 @@ and parses this stats using Pattern and Regex.
             ex.printStackTrace();
         }
 `````
-
-(If u have a multicore version, u must merge all file Stats on a single Stat instance)
+<h4>Exemple using this Library with LiteSpeed multicore version:</h4>
+If u have a multicore litespeed version, u must merge all file Stats on a single Stats instance.
+`````java
+        String folderPath = "/tmp/lshttpd/";
+        StatsFile file1 = new StatsFile(filePath+".rtreport1");
+        StatsFile file2 = new StatsFile(filePath+".rtreport2");
+        try {
+            Stats stats = file1.loadAll();
+            stats.merge(file2.loadAll());
+            System.out.println("Loaded virtualHosts of log.rtreport : ");
+            for (HostStats hstats : stats.requests.hosts.values()) {
+                System.out.println("- " + hstats.name);
+            }
+            System.out.println("Litespeed blocked IPS: ");
+            for (String addr : stats.bannedIPs.array) {
+                System.out.println("- " + addr);
+            }
+            System.out.println("Litespeed version " + stats.litespeed.Version);
+            System.out.println("Uptime(in hours) : " + stats.litespeed.Uptime / (3600 * 1000));
+            System.out.println("Uptime(in millis) : " + stats.litespeed.Uptime);
+            System.out.println("Uptime : " + stats.litespeed.UptimeStr);
+            System.out.println("Total Requests : " + stats.requests.hosts.get("ALL").TotalRequests);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+`````
